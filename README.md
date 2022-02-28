@@ -1,7 +1,6 @@
 # Apache-Struts-v4
 
-El script contiene 5 vulnerabilidades distintas que explotarn vulnerabilidades de tipo RCE en ApacheStruts. por el momento solo contiene la capacidad de crear shell PHP.
-<br>
+> The script contains 5 different vulnerabilities that exploit RCE type vulnerabilities in ApacheStruts. at the moment it only contains the ability to create PHP shell.
 
 ---
 
@@ -17,9 +16,7 @@ El script contiene 5 vulnerabilidades distintas que explotarn vulnerabilidades d
 ---
 
 ## EXPLOIT
-<p align="center">
-  <img src="https://github.com/s1kr10s/Apache-Struts-v3/blob/master/exploit.png" width="700" alt="accessibility text">
-</p>
-<br>
+
+<img src="https://github.com/s1kr10s/Apache-Struts-v3/blob/master/exploit.png" width="700" alt="accessibility text">
 
 Thanks.
